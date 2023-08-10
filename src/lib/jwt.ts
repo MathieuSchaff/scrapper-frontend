@@ -17,10 +17,11 @@ export async function signJwtAccessToken(payload: JwtPayload, options: SignOptio
 export async function verifyJwt(token: string) {
   try {
     const secret = process.env.JWT_ACCESS_TOKEN_SECRET;
-    const payload = jwt.verify(token, secret!);
-    return payload as JwtPayload;
+    const decoded = jwt.verify(token, secret!);
+    console.log("decoded from verifyJwt Access token: ", decoded);
+    return decoded as JwtPayload;
   } catch (err) {
-    console.log(err);
+    // console.log("error in verifyJwt Access token: ", err);
     return null;
   }
 }
