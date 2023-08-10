@@ -12,7 +12,6 @@ export async function POST(request: Request) {
       email: body.email,
     },
   });
-  // console.log("login page route user", user);
   if (user && (await bcrypt.compare(body.password, user.password))) {
     const { password, ...userWithoutPass } = user;
     const accessToken = await signJwtAccessToken(userWithoutPass);
@@ -20,7 +19,7 @@ export async function POST(request: Request) {
       ...userWithoutPass,
       accessToken,
     };
-
+    console.log("result post route login", result)
     return new Response(JSON.stringify(result), {
       headers: { "Content-Type": "application/json" },
     });
@@ -34,3 +33,4 @@ export async function POST(request: Request) {
     );
   }
 }
+// FsRzmkx#Tt6De4X9
