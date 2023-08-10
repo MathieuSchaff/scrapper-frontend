@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
-import { buttonVariants } from "@/components/ui/button"
-import clsx from 'clsx'
 import { SignInButton } from '@/components/SignInButton'
+import { SignUpButton } from '@/components/SignUpButton'
 const Navbar = async () => {
   return (
     <nav className="bg-blue-600 p-4">
@@ -10,7 +9,13 @@ const Navbar = async () => {
         <Link href='/' className="text-white">
           Home Page
         </Link>
-        <SignInButton />
+        <Link href='/UserJobs' className="text-white">
+          User Jobs
+        </Link>
+        <div className="flex items-center gap-2">
+          <SignUpButton />
+          <SignInButton />
+        </div>
       </div>
     </nav >
   )
