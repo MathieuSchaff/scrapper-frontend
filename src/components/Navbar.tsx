@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
-import { SignInButton } from '@/components/SignInButton'
-import { SignUpButton } from '@/components/SignUpButton'
+import { SignInButton } from '@/components/Auth/SignInButton'
+import { SignUpButton } from '@/components/Auth/SignUpButton'
 const Navbar = async () => {
   return (
     <nav className="bg-blue-600 p-4">
