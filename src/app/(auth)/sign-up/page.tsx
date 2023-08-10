@@ -126,6 +126,6 @@ function SignUpForm() {
         </form>
       </Form>
     </div>
-
   )
 }
+export default SignUpForm

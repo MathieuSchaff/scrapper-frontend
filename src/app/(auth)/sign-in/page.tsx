@@ -33,7 +33,7 @@ type FormValues = z.infer<typeof schema>;
 function SignInForm() {
   const [errorLogin, setErrorLogin] = useState(false)
   const session = useSession()
-  if (session?.data?.user) redirect("/")
+  // if (session?.data?.user) redirect("/")
   const form = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -47,10 +47,10 @@ function SignInForm() {
     // Sign in with 'credentials' provider
     try {
       const result = await signIn('credentials', { // 'credentials' is the name of the provider
-        redirect: false, // This will prevent the page from being redirected
+        redirect: true, // This will prevent the page from being redirected
         email: values.email,
         password: values.password,
-        // callbackUrl: "/"
+        callbackUrl: "/"
       })
       console.log(result)
       if (result?.error) {
