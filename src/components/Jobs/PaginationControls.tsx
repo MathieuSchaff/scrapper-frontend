@@ -1,4 +1,5 @@
 'use client'
+import { memo } from 'react'
 import { getTotalRowCount } from '@/lib/jobs/utils'
 import { FC } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -6,51 +7,37 @@ import useSWR from 'swr'
 interface PaginationControlsProps {
   pgnum: number
   setPageNumber: (pageNumber: number) => void
+  per_page: number
 }
 const PaginationControls: FC<PaginationControlsProps> = (
   {
     pgnum,
     setPageNumber,
+    per_page
   }
 ) => {
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  const page = searchParams.get('page') ?? '1'
-  const per_page = searchParams.get('per_page') ?? '10'
   const { data: totalCount, error: countError } = useSWR("/api/jobs/count", getTotalRowCount);
 
 
-  const total = 32;
-  // const totalPages = Math.ceil(total / per_page);
+  const totalPages = totalCount !== undefined ? Math.ceil(totalCount / per_page) : 0;
   return (
-    <div className='flex gap-2'>
-      {/* <button */}
-      {/*   className='bg-blue-500 text-white p-1' */}
-      {/*   disabled={!hasPrevPage} */}
-      {/*   onClick={() => { */}
-      {/*     router.push(`/?page=${Number(page) - 1}&per_page=${per_page}`) */}
-      {/*   }}> */}
-      {/*   prev page */}
-      {/* </button> */}
-      <button onClick={() => setPgnum(pgnum - 1)} disabled={pgnum === 0}>
+    <div className='flex gap-2 self-center pt-5'>
+      {/* <div>{totalCount}</div> */}
+
+      <button onClick={() => setPageNumber(pgnum - 1)} disabled={pgnum === 0}
+        className='bg-blue-500 text-white p-1'
+      >
         Previous Page
       </button>
-      <button onClick={() => setPgnum(pgnum + 1)}>Next Page</button>
-      <div>
-        {page} / {Math.ceil(10 / Number(per_page))}
-      </div>
-      {}
-      {/* <button */}
-      {/*   className='bg-blue-500 text-white p-1' */}
-      {/*   disabled={!hasNextPage} */}
-      {/*   onClick={() => { */}
-      {/*     router.push(`/?page=${Number(page) + 1}&per_page=${per_page}`) */}
-      {/*   }}> */}
-      {/*   next page */}
-      {/* </button> */}
+      <div>{pgnum + 1} / {totalPages}</div>
+      <button onClick={() => setPageNumber(pgnum + 1)}
+        className='bg-blue-500 text-white p-1'
+        disabled={pgnum >= totalPages - 1}
+      >Next Page</button>
     </div>
   )
 }
-
-export default PaginationControls
+export const MemoPaginationControls = memo(PaginationControls)
