@@ -1,7 +1,7 @@
-import Jobs from '../components/Jobs'
+import Jobs from '@/components/Jobs/Jobs'
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col">
       <Jobs />
     </main>
   )
