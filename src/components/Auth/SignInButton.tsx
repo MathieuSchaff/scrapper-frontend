@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 import { signIn, signOut, useSession } from 'next-auth/react'
-import { Button } from './ui/button'
+import { Button } from '@/components/ui/button'
 export const SignInButton = () => {
   const { data: session } = useSession()
   console.log(session?.user.accessToken)
