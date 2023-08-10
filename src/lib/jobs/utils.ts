@@ -1,10 +1,9 @@
 import { instanceAxios } from '@/lib/axiosConfig'
 import { Job } from '@prisma/client'
 import { AxiosResponse } from 'axios'
-import prisma from '@/lib/prisma';
 
-export const getTotalRowCount = async (): Promise<number> => {
-  const response: AxiosResponse<number> = await instanceAxios.get<number>('/jobs/count');
+export const getTotalRowCount = async (args: string): Promise<number> => {
+  const response: AxiosResponse<number> = await instanceAxios.get<number>(args);
   const count: number = response.data;
   return count;
 }
